@@ -10,3 +10,9 @@
 |-------|---------|------|-----|--------------|
 
 <!-- Los daily se insertarán automáticamente aquí -->
+## 2026-06-21 - Sunday
+
+- **Miembro:** Administrador
+- **Ayer:** Nada
+- **Hoy:** Prueba 01
+- **Bloqueadores:** Ninguno

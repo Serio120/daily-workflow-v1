@@ -1,0 +1,69 @@
+name: 📅 Daily Standup
+description: Registrar objetivos del daily standup
+title: "📅 Daily - {{ date | date('YYYY-MM-DD') }}"
+labels: ["daily"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 📅 Daily Standup
+        
+        Completa los siguientes campos para tu daily de hoy:
+        
+        > 💡 Puedes usar `- [ ]` para crear checkboxes en las tareas
+        
+  - type: input
+    id: team_member
+    attributes:
+      label: "👤 Nombre"
+      description: "Tu nombre o alias"
+      placeholder: "Tu nombre aquí"
+    validations:
+      required: true
+
+  - type: textarea
+    id: yesterday
+    attributes:
+      label: "✅ Ayer (What did you do yesterday?)"
+      description: "Lista las tareas completadas ayer"
+      placeholder: |
+        - [ ] Tarea 1 completada
+        - [ ] Tarea 2 completada
+        - Reunión de planificación
+    validations:
+      required: true
+
+  - type: textarea
+    id: today
+    attributes:
+      label: "🎯 Hoy (What will you do today?)"
+      description: "Lista las tareas planificadas para hoy"
+      placeholder: |
+        - [ ] Tarea 1 en progreso
+        - [ ] Tarea 2 pendiente
+        - Review de PR #123
+    validations:
+      required: true
+
+  - type: textarea
+    id: blockers
+    attributes:
+      label: "🚧 Bloqueadores (Any blockers?)"
+      description: "Indica si hay algún impedimento"
+      placeholder: |
+        - Ninguno / Sin bloqueadores
+        - Esperando aprobación de diseño
+        - Dependencias externas pendientes...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: energy
+    attributes:
+      label: "🔋 Nivel de energía"
+      options:
+        - Alta - Puedo abordar tareas complejas
+        - Media - Perfecto para trabajo normal
+        - Baja - Necesito tareas más simples
+    validations:
+      required: false

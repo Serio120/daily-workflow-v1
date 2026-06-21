@@ -1,0 +1,169 @@
+name: Daily Standup → GitHub
+
+on:
+  workflow_dispatch:
+    inputs:
+      team_member:
+        description: 'Nombre del miembro'
+        required: true
+        type: string
+      yesterday:
+        description: 'Qué hice ayer'
+        required: true
+        type: string
+      today:
+        description: 'Qué haré hoy'
+        required: true
+        type: string
+      blockers:
+        description: 'Bloqueadores (opcional)'
+        required: false
+        type: string
+
+  issues:
+    types: [opened, labeled]
+
+  schedule:
+    - cron: '0 8 * * 1-5'
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  capture-daily:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get current date
+        id: date
+        run: |
+          echo "date=$(date +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+          echo "day=$(date +'%A')" >> "$GITHUB_OUTPUT"
+          echo "week=$(date +'V%V-%G')" >> "$GITHUB_OUTPUT"
+
+      - name: Parse issue form
+        if: github.event_name == 'issues'
+        id: issue-input
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue?.body || '';
+
+            const pick = (label) => {
+              const re = new RegExp(`###\\s*${label}\\s*\\n+([\\s\\S]*?)(?=\\n###\\s|$)`, 'i');
+              const m = body.match(re);
+              return m && m[1] ? m[1].trim() : '';
+            };
+
+            core.setOutput('team_member', pick('Nombre') || context.payload.issue.user.login);
+            core.setOutput('yesterday', pick('Ayer') || 'Sin datos');
+            core.setOutput('today', pick('Hoy') || 'Sin datos');
+            core.setOutput('blockers', pick('Bloqueadores') || 'Ninguno');
+
+      - name: Generate daily file
+        id: generate
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            source="manual"
+            member="${{ github.event.inputs.team_member }}"
+            yesterday="${{ github.event.inputs.yesterday }}"
+            today="${{ github.event.inputs.today }}"
+            blockers="${{ github.event.inputs.blockers || 'Ninguno' }}"
+          elif [[ "${{ github.event_name }}" == "issues" ]]; then
+            source="issue"
+            member="${{ steps.issue-input.outputs.team_member }}"
+            yesterday="${{ steps.issue-input.outputs.yesterday }}"
+            today="${{ steps.issue-input.outputs.today }}"
+            blockers="${{ steps.issue-input.outputs.blockers }}"
+          else
+            source="schedule"
+            member="Equipo"
+            yesterday="Sin datos"
+            today="Planificación diaria"
+            blockers="Ninguno"
+          fi
+
+          file_path=".daily/${{ steps.date.outputs.date }}.md"
+          mkdir -p .daily
+
+          cat > "$file_path" <<EOF
+          ---
+          date: ${{ steps.date.outputs.date }}
+          day: ${{ steps.date.outputs.day }}
+          week: ${{ steps.date.outputs.week }}
+          source: $source
+          team_member: $member
+          ---
+
+          # Daily Standup - ${{ steps.date.outputs.date }}
+
+          ## ✅ Ayer
+          $yesterday
+
+          ## 🎯 Hoy
+          $today
+
+          ## 🚧 Bloqueadores
+          $blockers
+          EOF
+
+          {
+            echo "source=$source"
+            echo "member=$member"
+            echo "yesterday<<EOF"
+            echo "$yesterday"
+            echo "EOF"
+            echo "today<<EOF"
+            echo "$today"
+            echo "EOF"
+            echo "blockers<<EOF"
+            echo "$blockers"
+            echo "EOF"
+            echo "file_path=$file_path"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Update main log
+        shell: bash
+        run: |
+          cat >> DAILY_LOG.md <<EOF
+
+          ## ${{ steps.date.outputs.date }} - ${{ steps.date.outputs.day }}
+
+          - **Miembro:** ${{ steps.generate.outputs.member }}
+          - **Ayer:** ${{ steps.generate.outputs.yesterday }}
+          - **Hoy:** ${{ steps.generate.outputs.today }}
+          - **Bloqueadores:** ${{ steps.generate.outputs.blockers }}
+          EOF
+
+      - name: Configure git
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push
+        run: |
+          git add DAILY_LOG.md .daily
+          git commit -m "📅 Daily: ${{ steps.date.outputs.date }}" || echo "No changes to commit"
+          git push
+
+      - name: Create follow-up issue
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const date = '${{ steps.date.outputs.date }}';
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `📋 Daily ${date}`,
+              body: `Se registró el daily del día ${date}.`,
+              labels: ['daily', 'seguimiento']
+            });

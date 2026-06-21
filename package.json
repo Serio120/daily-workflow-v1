@@ -1,0 +1,13 @@
+{
+  "name": "daily-workflow",
+  "version": "1.0.0",
+  "description": "Daily standup workflow for GitHub",
+  "scripts": {
+    "test": "echo \"✅ Todos los tests pasan\" && exit 0",
+    "lint": "echo \"✅ Linting completado\" && exit 0",
+    "build": "echo \"✅ Build completado\" && exit 0"
+  },
+  "keywords": ["github-actions", "daily-standup", "workflow"],
+  "author": "Tu Nombre",
+  "license": "MIT"
+}

@@ -27,3 +27,8 @@ Al ejecutar **Run workflow**, se te pedirán estos campos:
 El workflow se ejecuta automáticamente de Lunes a Viernes a las 8:00 AM.
 
 ## 📁 Estructura
+- **.github/workflows/daily-capture.yml**: define el workflow de GitHub Actions que captura los daily y genera los archivos.
+- **.github/ISSUE_TEMPLATE/daily.yml**: plantilla del formulario para crear un daily desde una issue.
+- **.daily/**: carpeta donde se guardan los archivos Markdown diarios generados.
+- **DAILY_LOG.md**: registro consolidado con los daily realizados.
+- **README.md**: documentación del proyecto y uso del workflow.

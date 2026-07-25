@@ -233,3 +233,10 @@
 - **Ayer:** Nada
 - **Hoy:** Crear dos Agentes para los Cursos: REACT y .NET
 - **Bloqueadores:** Sin Bloqueos, por ahora
+
+## 2026-07-25 - Saturday
+
+- **Miembro:** Soporte
+- **Ayer:** Nada
+- **Hoy:** Control de Code Spaces en Serio120
+- **Bloqueadores:** Avisos de GitHub (Esto no es un bloqueador, pero hay que comentarlo)

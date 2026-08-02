@@ -303,3 +303,10 @@
 - **Ayer:** Nota
 - **Hoy:** Nota
 - **Bloqueadores:** Ninguno
+
+## 2026-08-02 - Sunday
+
+- **Miembro:** Teacher
+- **Ayer:** Festivo
+- **Hoy:** Festivo
+- **Bloqueadores:** Ninguno

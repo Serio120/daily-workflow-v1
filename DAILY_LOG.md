@@ -310,3 +310,10 @@
 - **Ayer:** Festivo
 - **Hoy:** Festivo
 - **Bloqueadores:** Ninguno
+
+## 2026-08-03 - Monday
+
+- **Miembro:** Equipo
+- **Ayer:** Sin datos
+- **Hoy:** Planificación diaria
+- **Bloqueadores:** Ninguno

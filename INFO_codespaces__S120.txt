@@ -11,10 +11,14 @@ Max Codespace Running (4)
 Maximum codespaces running at the same time (2)
 -----------------------------------------------
 
-URL General:
+URL General Codespaces:
 https://github.com/codespaces
 -----------------------------------------------
 
 Usage and Billing:
 https://github.com/settings/billing#usage
+-----------------------------------------------
+
+More general:
+https://docs.github.com/es
 -----------------------------------------------

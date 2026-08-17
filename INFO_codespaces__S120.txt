@@ -1,6 +1,20 @@
+My Codespaces to 08.2026
+
+- daily-workflow-v1
+- crl-repaso-redes-sociales-by-lara
+- github-copilot-demo
+- css
+
 Max Codespace Running (4)
 ------------------------------------------------
-daily-workflow-v1
-crl-repaso-redes-sociales-by-lara
-github-copilot-demo
-css
+
+Maximum codespaces running at the same time (2)
+-----------------------------------------------
+
+URL General:
+https://github.com/codespaces
+-----------------------------------------------
+
+Usage and Billing:
+https://github.com/settings/billing#usage
+-----------------------------------------------

@@ -541,3 +541,10 @@
 - **Ayer:** Sin datos
 - **Hoy:** Planificación diaria
 - **Bloqueadores:** Ninguno
+
+## 2026-08-26 - Wednesday
+
+- **Miembro:** Developer
+- **Ayer:** Nada
+- **Hoy:** Enseñar como trabajar con node.js sin permisos de administrador
+- **Bloqueadores:** Ninguno

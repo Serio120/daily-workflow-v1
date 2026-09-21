@@ -723,3 +723,10 @@
 - **Ayer:** Festivo
 - **Hoy:** Festivo
 - **Bloqueadores:** Ninguno
+
+## 2026-09-21 - Monday
+
+- **Miembro:** Equipo
+- **Ayer:** Sin datos
+- **Hoy:** Planificación diaria
+- **Bloqueadores:** Ninguno

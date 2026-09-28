@@ -772,3 +772,10 @@
 - **Ayer:** Festivo
 - **Hoy:** Festivo
 - **Bloqueadores:** No se reflejo
+
+## 2026-09-28 - Monday
+
+- **Miembro:** Equipo
+- **Ayer:** Sin datos
+- **Hoy:** Planificación diaria
+- **Bloqueadores:** Ninguno

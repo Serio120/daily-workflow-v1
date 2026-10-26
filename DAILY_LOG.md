@@ -961,3 +961,10 @@
 - **Ayer:** Festivo
 - **Hoy:** Festivo
 - **Bloqueadores:** Ninguno
+
+## 2026-10-26 - Monday
+
+- **Miembro:** Equipo
+- **Ayer:** Sin datos
+- **Hoy:** Planificación diaria
+- **Bloqueadores:** Ninguno

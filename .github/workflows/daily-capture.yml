@@ -99,26 +99,26 @@ jobs:
           daily_path = Path(".daily") / f"{date}.md"
           daily_path.parent.mkdir(parents=True, exist_ok=True)
           daily_path.write_text(
-              f"---\\ndate: {date}\\nday: {day}\\nweek: {week}\\n"
-              f"source: {source}\\nteam_member: {json.dumps(member, ensure_ascii=False)}\\n---\\n\\n"
-              f"# Daily Standup - {date}\\n\\n"
-              f"## Ayer\\n{yesterday}\\n\\n"
-              f"## Hoy\\n{today}\\n\\n"
-              f"## Bloqueadores\\n{blockers}\\n",
+              f"---\ndate: {date}\nday: {day}\nweek: {week}\n"
+              f"source: {source}\nteam_member: {json.dumps(member, ensure_ascii=False)}\n---\n\n"
+              f"# Daily Standup - {date}\n\n"
+              f"## Ayer\n{yesterday}\n\n"
+              f"## Hoy\n{today}\n\n"
+              f"## Bloqueadores\n{blockers}\n",
               encoding="utf-8",
           )
 
           with Path("DAILY_LOG.md").open("a", encoding="utf-8") as log:
               log.write(
-                  f"\\n\\n## {date} - {day}\\n\\n"
-                  f"- **Miembro:** {member}\\n"
-                  f"- **Ayer:** {yesterday}\\n"
-                  f"- **Hoy:** {today}\\n"
-                  f"- **Bloqueadores:** {blockers}\\n"
+                  f"\n\n## {date} - {day}\n\n"
+                  f"- **Miembro:** {member}\n"
+                  f"- **Ayer:** {yesterday}\n"
+                  f"- **Hoy:** {today}\n"
+                  f"- **Bloqueadores:** {blockers}\n"
               )
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"source={source}\\nmember={member.replace(chr(10), ' ')}\\nfile_path={daily_path}\\n")
+              output.write(f"source={source}\nmember={member.replace(chr(10), ' ')}\nfile_path={daily_path}\n")
           PY
 
       - name: Configure git

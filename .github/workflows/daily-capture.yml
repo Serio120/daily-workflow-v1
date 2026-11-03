@@ -24,7 +24,8 @@ on:
     types: [opened, labeled]
 
   schedule:
-    - cron: '0 8 * * 1-5'
+    # Every day at 08:00 UTC, including weekends and public holidays.
+    - cron: '0 8 * * *'
 
 permissions:
   contents: write

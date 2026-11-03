@@ -24,7 +24,7 @@ on:
     types: [opened, labeled]
 
   schedule:
-    - cron: '0 8 * * 1-5'
+    - cron: '0 8 * * *'
 
 permissions:
   contents: write

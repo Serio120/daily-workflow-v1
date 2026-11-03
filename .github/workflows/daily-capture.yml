@@ -58,7 +58,7 @@ jobs:
             const body = context.payload.issue?.body || '';
 
             const pick = (label) => {
-              const re = new RegExp(`###\\s*${label}\\s*\\n+([\\s\\S]*?)(?=\\n###\\s|$)`, 'i');
+              const re = new RegExp(`###\\s*[^\\n]*${label}\\s*\\n+([\\s\\S]*?)(?=\\n###\\s|$)`, 'i');
               const match = body.match(re);
               return match?.[1]?.trim() || '';
             };

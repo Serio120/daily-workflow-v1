@@ -101,7 +101,7 @@ jobs:
           daily_path.parent.mkdir(parents=True, exist_ok=True)
           daily_path.write_text(
               f"---\ndate: {date}\nday: {day}\nweek: {week}\n"
-              f"source: {source}\nteam_member: {json.dumps(member, ensure_ascii=False)}\n---\n\n"
+              # JSON string quoting is valid YAML double-quoted scalar syntax and escapes each backslash.\n          quoted_member = json.dumps(member, ensure_ascii=False)\n          f"source: {source}\nteam_member: {quoted_member}\n---\n\n"
               f"# Daily Standup - {date}\n\n"
               f"## Ayer\n{yesterday}\n\n"
               f"## Hoy\n{today}\n\n"

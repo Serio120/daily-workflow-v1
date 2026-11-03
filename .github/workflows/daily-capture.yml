@@ -33,7 +33,7 @@ permissions:
 jobs:
   capture-daily:
     # Issue events are accepted only when the issue carries the daily label.
-    if: github.event_name != 'issues' || contains(github.event.issue.labels.*.name, 'daily')
+    if: github.event_name != 'issues' || (contains(github.event.issue.labels.*.name, 'daily') && (github.event.action == 'opened' || github.event.label.name == 'daily'))
     runs-on: ubuntu-latest
 
     steps:
@@ -58,7 +58,7 @@ jobs:
             const body = context.payload.issue?.body || '';
 
             const pick = (label) => {
-              const re = new RegExp(`###\\s*[^\\n]*${label}\\s*\\n+([\\s\\S]*?)(?=\\n###\\s|$)`, 'i');
+              const re = new RegExp(`###\\s*[^\\n]*${label}[^\\n]*\\n+([\\s\\S]*?)(?=\\n###\\s|$)`, 'i');
               const match = body.match(re);
               return match?.[1]?.trim() || '';
             };

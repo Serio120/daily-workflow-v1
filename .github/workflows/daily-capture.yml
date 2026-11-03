@@ -82,6 +82,7 @@ jobs:
           DAILY_WEEK: ${{ steps.date.outputs.week }}
         run: |
           python - <<'PY'
+          import json
           import os
           from pathlib import Path
 
@@ -95,14 +96,11 @@ jobs:
           day = os.environ["DAILY_DAY"]
           week = os.environ["DAILY_WEEK"]
 
-          def safe_yaml(value):
-              return '"' + value.replace("\\\\", "\\\\\\\\").replace('"', '\\"').replace("\\n", " ") + '"'
-
           daily_path = Path(".daily") / f"{date}.md"
           daily_path.parent.mkdir(parents=True, exist_ok=True)
           daily_path.write_text(
               f"---\\ndate: {date}\\nday: {day}\\nweek: {week}\\n"
-              f"source: {source}\\nteam_member: {safe_yaml(member)}\\n---\\n\\n"
+              f"source: {source}\\nteam_member: {json.dumps(member, ensure_ascii=False)}\\n---\\n\\n"
               f"# Daily Standup - {date}\\n\\n"
               f"## Ayer\\n{yesterday}\\n\\n"
               f"## Hoy\\n{today}\\n\\n"
